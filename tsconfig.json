@@ -1,0 +1,25 @@
+{
+  "compilerOptions": {
+    "module": "esnext",
+    "target": "esnext",
+    "lib": ["dom", "dom.iterable", "esnext", "webworker"],
+    "allowJs": true,
+    "skipLibCheck": true,
+    "strict": true,
+    "forceConsistentCasingInFileNames": true,
+    "noEmit": true,
+    "esModuleInterop": true,
+    "moduleResolution": "node",
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "jsx": "preserve",
+    "incremental": true,
+  },
+  "ts-node": {
+    "esm": true,
+    "experimentalSpecifierResolution": "node"
+  },
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "worker.d.ts", "commitlint.config.js", "jest.config.js", "src/server/deploy.js", "cypress/e2e/common_spec.js"],
+  "exclude": ["node_modules"],
+  "types": ["jest", "@testing-library/jest-dom", "cypress", "./support/index.d.ts"]
+}
