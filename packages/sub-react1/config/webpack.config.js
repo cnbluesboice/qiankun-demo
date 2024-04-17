@@ -1,5 +1,3 @@
-'use strict';
-
 const fs = require('fs');
 const path = require('path');
 const webpack = require('webpack');
@@ -19,6 +17,7 @@ const ESLintPlugin = require('eslint-webpack-plugin');
 const paths = require('./paths');
 const modules = require('./modules');
 const getClientEnvironment = require('./env');
+const { name } = require('../package.json');
 const ModuleNotFoundPlugin = require('react-dev-utils/ModuleNotFoundPlugin');
 const ForkTsCheckerWebpackPlugin =
   process.env.TSC_COMPILE_ON_ERROR === 'true'
@@ -195,6 +194,9 @@ module.exports = function (webpackEnv) {
     // This means they will be the "root" imports that are included in JS bundle.
     entry: paths.appIndexJs,
     output: {
+      library: `${name}-[name]`,
+      libraryTarget: 'umd',
+      chunkLoadingGlobal: `webpackJsonp_${name}`,
       // The build folder.
       path: paths.appBuild,
       // Add /* filename */ comments to generated require()s in the output.

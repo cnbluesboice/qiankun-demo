@@ -6,6 +6,7 @@ function App() {
   return (
     <div className="App">
       <header className="App-header">
+        <h1>sub-react</h1>
         <img src={logo} className="App-logo" alt="logo" />
         <p>
           Edit <code>src/App.tsx</code> and save to reload.
@@ -16,7 +17,7 @@ function App() {
           target="_blank"
           rel="noopener noreferrer"
         >
-          Learn React
+          Learn React11111
         </a>
       </header>
     </div>
