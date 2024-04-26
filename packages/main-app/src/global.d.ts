@@ -3,6 +3,10 @@ declare module '*.jpg';
 declare module '*.jpeg';
 declare module '*.svg';
 declare module '*.gif';
+// declare module 'common-tools';
+// declare module 'antd';
+// declare module '@ant-design/icons';
+// declare module '@testing-library/react';
 
 // declare module 'echarts';
 // declare module 'dayjs';

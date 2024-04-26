@@ -1,0 +1,33 @@
+@import '../styles/colorConfig.scss';
+
+$LogoColor: #fff;
+
+.Layout__Header_container {
+  :global {
+    padding-inline: 20px
+  }
+}
+
+.Layout__Header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 24px;
+  // padding-left: 20px;
+}
+
+.Layout__Logo {
+  height: inherit;
+}
+
+.Layout__User {
+  text-align: right;
+  cursor: pointer;
+  padding: 0 24px;
+  margin-right: -50px;
+  color: #fff;
+
+  .Layout__User_Help {
+    color: #fff;
+  }
+}

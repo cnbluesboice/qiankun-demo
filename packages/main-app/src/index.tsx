@@ -3,49 +3,48 @@ import ReactDOM from 'react-dom/client';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
-import { registerMicroApps, start, setDefaultMountApp } from 'qiankun'
-import microApps from './micro-app'
+import { registerMicroApps, start, setDefaultMountApp } from 'qiankun';
+import { Keys } from './App';
+import microApps from './micro-app';
 
 const apps: any[] = microApps.map(item => {
   return {
     ...item,
     // loader
-  }
-})
+  };
+});
 
 registerMicroApps(apps, {
   beforeLoad: app => {
-    console.log('before load app.name====>>>>>', app.name)
+    console.log('before load app.name====>>>>>', app.name);
     return Promise.resolve();
   },
   beforeMount: [
     app => {
-      console.log('[LifeCycle] before mount %c%s', 'color: green;', app.name)
+      console.log('[LifeCycle] before mount %c%s', 'color: green;', app.name);
       return Promise.resolve();
-    }
+    },
   ],
   afterMount: [
     app => {
-      console.log('[LifeCycle] after mount %c%s', 'color: green;', app.name)
+      console.log('[LifeCycle] after mount %c%s', 'color: green;', app.name);
       return Promise.resolve();
-    }
+    },
   ],
   afterUnmount: [
     app => {
-      console.log('[LifeCycle] after unmount %c%s', 'color: green;', app.name)
+      console.log('[LifeCycle] after unmount %c%s', 'color: green;', app.name);
       return Promise.resolve();
-    }
-  ]
-})
+    },
+  ],
+});
 
-start()
+start();
 
-const root = ReactDOM.createRoot(
-  document.getElementById('root') as HTMLElement
-);
+const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement);
 root.render(
   <React.StrictMode>
-    <App />
+    <App menuStatus={Keys.DATA_SEARCH} cookie={{}} />
   </React.StrictMode>
 );
 

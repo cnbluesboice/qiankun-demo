@@ -1,5 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import { createRoot } from 'react-dom/client';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
@@ -28,7 +29,8 @@ export async function mount(props: any) {
   // 可通过 props.getGlobalState() 获取基座下发的数据
   // props.setGlobalState({user: {name: ''}}) 改变全局的数据
   // props.onGlobalStateChange 监听全局数据的变化
-  ReactDOM.render(<App />, props.container);
+  const root = createRoot(props.container);
+  root.render(<App />);
 }
 /**
  * 应用每次 切出/卸载 会调用的方法，通常在这里我们会卸载微应用的应用实例

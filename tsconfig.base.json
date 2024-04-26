@@ -1,6 +1,6 @@
 {
   "compilerOptions": {
-    "target": "es5",
+    "target": "es2015",
     "lib": [
       "dom",
       "dom.iterable",
@@ -19,8 +19,8 @@
     "isolatedModules": true,
     "noEmit": true,
     // "jsx": "react-jsx"
-    "jsx": "preserve"
+    "jsx": "preserve",
   },
-  "include": ["**/*.ts", "**/*.tsx", "commitlint.config.js",],
+  "include": ["**/*.ts", "**/*.tsx", "commitlint.config.js", "@testing-library/jest-dom"],
   "exclude": ["node_modules"]
 }

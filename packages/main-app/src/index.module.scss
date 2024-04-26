@@ -1,0 +1,24 @@
+@import './styles/colorConfig.scss';
+
+.Main__Layout_container {
+  
+  height: calc(100vh);
+  overflow-y: scroll;
+
+  .Main__Layout_item {
+    height: 100%;
+    max-height: calc(100vh);
+
+    .Main__Layout_content {
+      display: flex;
+    }
+  }
+
+  .MenuText {
+    color: $defaultTextColor;
+  }
+
+  .MenuTextActive {
+    color: $themeTextColor;
+  }
+}
