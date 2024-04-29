@@ -1,7 +1,7 @@
 import React from 'react';
 import { render, screen } from '@testing-library/react';
 import '@testing-library/jest-dom';
-import { Keys } from './App';
+import { Keys } from './micro-app';
 import App from './App';
 
 test('renders learn react link', () => {

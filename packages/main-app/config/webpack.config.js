@@ -284,7 +284,10 @@ module.exports = function (webpackEnv) {
       // We placed these paths second because we want `node_modules` to "win"
       // if there are any conflicts. This matches Node resolution mechanism.
       // https://github.com/facebook/create-react-app/issues/253
-      modules: ['node_modules', paths.appNodeModules].concat(modules.additionalModulePaths || []),
+      modules: ['node_modules', paths.appNodeModules].concat(
+        modules.additionalModulePaths || [],
+        'common-tools'
+      ),
       // These are the reasonable defaults supported by the Node ecosystem.
       // We also include JSX as a common component filename extension to support
       // some tools, although we do not recommend using it, see:
@@ -295,6 +298,8 @@ module.exports = function (webpackEnv) {
         .map(ext => `.${ext}`)
         .filter(ext => useTypeScript || !ext.includes('ts')),
       alias: {
+        // 'common-tools': path.resolve(__dirname, '../node_modules/common-tools'),
+        // 'common-tools': 'common-tools',
         // Support React Native Web
         // https://www.smashingmagazine.com/2016/08/a-glimpse-into-the-future-with-react-native-for-web/
         'react-native': 'react-native-web',
@@ -401,6 +406,8 @@ module.exports = function (webpackEnv) {
                       runtime: hasJsxRuntime ? 'automatic' : 'classic',
                     },
                   ],
+                  // '@babel/preset-env', '@babel/preset-react', '@babel/preset-typescript'
+                  // ['@babel/preset-env', '@babel/preset-react', '@babel/preset-typescript'],
                 ],
 
                 plugins: [
@@ -416,6 +423,35 @@ module.exports = function (webpackEnv) {
                 cacheCompression: false,
                 compact: isEnvProduction,
               },
+              // use: [
+              //   {
+              //     loader: require.resolve('babel-loader'),
+              //     options: {
+              //       customize: require.resolve('babel-preset-react-app/webpack-overrides'),
+              //       presets: [
+              //         [
+              //           require.resolve('babel-preset-react-app'),
+              //           {
+              //             runtime: hasJsxRuntime ? 'automatic' : 'classic',
+              //           },
+              //         ],
+              //         '@babel/preset-env', '@babel/preset-react', '@babel/preset-typescript',
+              //       ],
+              //       plugins: [
+              //         isEnvDevelopment &&
+              //         shouldUseReactRefresh &&
+              //         require.resolve('react-refresh/babel'),
+              //       ].filter(Boolean),
+              //       // This is a feature of `babel-loader` for webpack (not Babel itself).
+              //       // It enables caching results in ./node_modules/.cache/babel-loader/
+              //       // directory for faster rebuilds.
+              //       cacheDirectory: true,
+              //       // See #6846 for context on why cacheCompression is disabled
+              //       cacheCompression: false,
+              //       compact: isEnvProduction,
+              //     },
+              //   }
+              // ]
             },
             // Process any JS outside of the app with Babel.
             // Unlike the application JS, we only compile the standard ES features.

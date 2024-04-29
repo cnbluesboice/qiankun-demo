@@ -4,10 +4,11 @@ import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import { registerMicroApps, start, setDefaultMountApp } from 'qiankun';
-import { Keys } from './App';
+import { BrowserRouter as Router } from 'react-router-dom';
+import { Keys } from './micro-app';
 import microApps from './micro-app';
 
-const apps: any[] = microApps.map(item => {
+const apps: any[] = Object.values(microApps).map((item: any) => {
   return {
     ...item,
     // loader
@@ -40,11 +41,14 @@ registerMicroApps(apps, {
 });
 
 start();
+setDefaultMountApp('/dataSearch');
 
 const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement);
 root.render(
   <React.StrictMode>
+    <Router>
     <App menuStatus={Keys.DATA_SEARCH} cookie={{}} />
+    </Router>
   </React.StrictMode>
 );
 

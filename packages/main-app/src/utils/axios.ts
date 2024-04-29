@@ -1,15 +1,15 @@
 import axios from 'axios';
 import { nanoid } from 'nanoid';
 import { Timeout, USER_ERROR_STATUS } from './constant';
+// import { parseCookie } from '@/utils/tools';
 
 const axiosInstance = axios.create({
   // withCredentials: true,
-  baseURL: 'http://localhost:5001',
   timeout: Timeout,
 });
 
 const CancelToken = axios.CancelToken;
-export const axiosSource = CancelToken.source();
+const axiosSource = CancelToken.source();
 
 const axiosRetry = (axiosInstance: any, retries = 3) => {
   axiosInstance.interceptors.request.use(

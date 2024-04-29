@@ -2,13 +2,12 @@ import React, { useCallback, useEffect, useState } from 'react';
 import { UserOutlined } from '@ant-design/icons';
 import { Layout, Avatar, Dropdown, Space, Button, Modal, Select, Alert } from 'antd';
 import type { MenuProps } from 'antd';
-import { useErrorMessage, MessageType, useMyDebounce } from 'common-tools';
+import { useErrorMessage, MessageType, useMyDebounce } from '../utils';
 import { logOutFn } from './hepler';
-// import Image from 'next/image';
 import styles from './index.module.scss';
 import { useNavigate } from 'react-router-dom';
-import { getSessionStorage, setSessionStorage } from 'common-tools';
-import { UserLoginKey, DatabaseName } from 'common-tools';
+import { getSessionStorage, setSessionStorage } from '../utils';
+import { UserLoginKey, DatabaseName } from '../utils';
 import { setDataBase, getSettings } from '../https';
 
 const { Header } = Layout;
@@ -50,11 +49,11 @@ export const HeaderView: React.FC<Props> = () => {
 
   useEffect(() => {
     getSettingsFn.current();
-  }, []);
+  }, [getSettingsFn]);
 
   const logOut = useCallback(() => {
     logOutFn(navigate, showMessage);
-  }, []);
+  }, [navigate, showMessage]);
 
   const items: MenuProps['items'] = [
     {

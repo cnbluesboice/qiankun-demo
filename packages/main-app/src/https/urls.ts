@@ -5,7 +5,7 @@ export enum URLS {
   FILE_URL = '/api/getObject/getUrl',
   ENUMS_LIST = '/api/common/getEnums',
   AUTH_TOKEN = '/api/common/authToken',
-  SETTINGS = '/api/common/getSettings',
+  SETTINGS = '/api/setting/database_name',
   LIST_COUNT = '/api/common/getCount',
   IMG_BASE64 = '/api/common/getImgToBase64',
   SET_DATABASE = '/api/common/setDatabase',

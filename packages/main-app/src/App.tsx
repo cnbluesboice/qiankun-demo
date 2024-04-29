@@ -1,10 +1,9 @@
 import React, { useCallback, ReactNode } from 'react';
 import './App.css';
-import microApps from './micro-app';
-import { Link } from 'react-router-dom';
+import microApps, { Keys } from './micro-app';
+// import { Link } from 'react-router-dom';
 import {
   DatabaseOutlined,
-  FundViewOutlined,
   AreaChartOutlined,
   CarOutlined,
   DeploymentUnitOutlined,
@@ -12,65 +11,34 @@ import {
   TableOutlined,
   HeatMapOutlined,
 } from '@ant-design/icons';
-import { removeSessionStorage } from 'common-tools';
-import { BreadCrumbKey, SearchValueKey } from 'common-tools';
+import { removeSessionStorage } from '../src/utils';
+import { BreadCrumbKey, SearchValueKey } from '../src/utils';
 import { Layout, Menu, theme } from 'antd';
 import { HeaderView } from './HeaderSearch';
 import styles from './index.module.scss';
 
 const { Content, Sider } = Layout;
 
-export enum Keys {
-  DATA_SEARCH = '1',
-  DATA_INSIGHTS = '2',
-  DATA_OVERVIEW = '2-1',
-  DATA_TRAJECTORY = '2-2',
-  DATA_FACTORY = '2-3',
-  EVALUATION = '3',
-  WORKFLOW = '4',
-  ANNOTATION = '6',
-  DATA_COLLECTION = '5',
-  DATA_POOL = '7',
-  DATA_MAP = '8',
-  USER_SETTING = '9',
-}
-
 const items2 = () => [
   {
     key: Keys.DATA_SEARCH,
     icon: React.createElement(DatabaseOutlined),
-    label: (
-      <Link to="/">
-        <span>Data Search</span>
-      </Link>
-    ),
+    label: <span>Data Search</span>,
   },
   {
     key: Keys.DATA_COLLECTION,
     icon: React.createElement(CarOutlined),
-    label: (
-      <Link to="/view/dataCollection">
-        <span>Data Collection</span>
-      </Link>
-    ),
+    label: <span>Data Collection</span>,
   },
   {
     key: Keys.DATA_POOL,
     icon: React.createElement(TableOutlined),
-    label: (
-      <Link to="/view/dataPool">
-        <span>Data Pool</span>
-      </Link>
-    ),
+    label: <span>Data Pool</span>,
   },
   {
     key: Keys.DATA_MAP,
     icon: React.createElement(HeatMapOutlined),
-    label: (
-      <Link to="/view/dataMap">
-        <span>Data Map</span>
-      </Link>
-    ),
+    label: <span>Data Map</span>,
   },
   {
     key: Keys.DATA_INSIGHTS,
@@ -79,56 +47,27 @@ const items2 = () => [
     children: [
       {
         key: Keys.DATA_OVERVIEW,
-        label: (
-          <Link to="/view/operation/overview">
-            <span>Data Overview</span>
-          </Link>
-        ),
+        label: <span>Data Overview</span>,
       },
       {
         key: Keys.DATA_FACTORY,
-        label: (
-          <Link to="/view/operation/dataFactory">
-            <span>Data Factory</span>
-          </Link>
-        ),
+        label: <span>Data Factory</span>,
       },
       {
         key: Keys.DATA_TRAJECTORY,
-        label: (
-          <Link to="/view/operation/trajectory">
-            <span>Data Trajectory</span>
-          </Link>
-        ),
+        label: <span>Data Trajectory</span>,
       },
     ],
   },
   {
     key: Keys.WORKFLOW,
     icon: React.createElement(DeploymentUnitOutlined),
-    label: (
-      <Link to="/view/workflow">
-        <span>Workflow</span>
-      </Link>
-    ),
+    label: <span>Workflow</span>,
   },
   {
     key: Keys.ANNOTATION,
     icon: React.createElement(ImportOutlined),
-    label: (
-      <Link to="/view/annotation">
-        <span>Annotation</span>
-      </Link>
-    ),
-  },
-  {
-    key: Keys.EVALUATION,
-    icon: React.createElement(FundViewOutlined),
-    label: (
-      <Link to="/view/evaluation/evalset">
-        <span>Evaluation</span>
-      </Link>
-    ),
+    label: <span>Annotation</span>,
   },
 ];
 
@@ -145,19 +84,10 @@ function App({ children, title = 'HUIXI Data Platform', menuStatus, cookie }: Pr
   } = theme.useToken();
 
   const handleClick = useCallback((item: any) => {
-    // eslint-disable-next-line no-restricted-globals
-    history.pushState(null, item.activeRule, item.activeRule);
+    window.history.pushState(null, item.activeRule, item.activeRule);
   }, []);
-  console.log(microApps, 'microApps');
+  // console.log(microApps, 'microApps');
   return (
-    // <div className="App">
-    //   {microApps.map((item: any, index: number) => (
-    //     <button key={index.toString()} onClick={() => handleClick(item)}>
-    //       {item.name}
-    //     </button>
-    //   ))}
-    //   <div id="subapp-viewport"></div>
-    // </div>
     <div className={styles.Main__Layout_container} data-testid="LayoutView">
       <Layout className={styles.Main__Layout_item}>
         <header>
@@ -178,9 +108,11 @@ function App({ children, title = 'HUIXI Data Platform', menuStatus, cookie }: Pr
               style={{ height: 'auto', borderRight: 0 }}
               items={items2()}
               triggerSubMenuAction="click"
-              onClick={() => {
+              onClick={({key}) => {
                 removeSessionStorage(BreadCrumbKey);
                 removeSessionStorage(SearchValueKey);
+                const cur_sub_app = microApps[key]
+                handleClick(cur_sub_app);
               }}
             />
           </Sider>
@@ -193,7 +125,7 @@ function App({ children, title = 'HUIXI Data Platform', menuStatus, cookie }: Pr
                 background: colorBgContainer,
               }}
             >
-              {children}
+              <div id="subapp-viewport"></div>
             </Content>
           </Layout>
         </Layout>

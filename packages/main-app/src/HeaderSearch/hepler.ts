@@ -1,4 +1,4 @@
-import { sentryIntegration, MessageType } from 'common-tools';
+import { sentryIntegration, MessageType } from '../utils';
 import { userLogOut } from '../https';
 
 export const logOutFn = (router: any, showMessage: any) => {
