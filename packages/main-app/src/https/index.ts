@@ -1,9 +1,18 @@
 import axiosWithRetries from './instance';
 import { Params, LoginParams, RegisterParams, CreateWorkflow } from './interface';
 import { URLS } from './urls';
+import { parseTableFields } from '../utils/common_tools';
 
 // common
-const getDatabaseFields = () => axiosWithRetries.get(URLS.TABLE_FIELDS);
+const getDatabaseFields = () => {
+  return new Promise((resolve, reject) => {
+    axiosWithRetries.get(URLS.TABLE_FIELDS).then((res: any) => {
+      const { data } = res;
+      const fieldsRes = parseTableFields(data);
+      resolve(fieldsRes);
+    })
+  });
+};
 const getDatabaseData = (data: Params) => axiosWithRetries.post(URLS.Table_LIST, data);
 const getUrl = (params: { path: string }) => axiosWithRetries.get(URLS.FILE_URL, { params });
 const getEnums = () => axiosWithRetries.get(URLS.ENUMS_LIST);

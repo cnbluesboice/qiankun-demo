@@ -1,0 +1,80 @@
+.table__Wrapper {
+  height: 100%;
+
+  :global {
+
+    .ant-form {
+      margin-bottom: 20px;
+    }
+
+    .ant-form-item {
+      margin-bottom: 5px;
+    }
+
+    .ant-table-body {
+      height: calc(70vh);
+    }
+
+    .ant-table-body::-webkit-scrollbar {
+      width: 10px;
+      height: 10px;
+    }
+
+    .ant-table-body::-webkit-scrollbar-track {
+      background: rgb(239, 239, 239);
+      border-radius: 2px;
+    }
+
+    .ant-table-body::-webkit-scrollbar-thumb {
+      background: #bfbfbf;
+      border-radius: 10px;
+    }
+
+    .ant-table-body::-webkit-scrollbar-thumb:hover {
+      background: #333;
+    }
+  }
+}
+
+.table__Wrapper::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+
+.table__Wrapper::-webkit-scrollbar-track {
+  background: rgb(239, 239, 239);
+  border-radius: 2px;
+}
+
+.table__Wrapper::-webkit-scrollbar-thumb {
+  background: #bfbfbf;
+  border-radius: 10px;
+}
+
+.table__Wrapper::-webkit-scrollbar-thumb:hover {
+  background: #333;
+}
+
+.Scroll_Wrapper {
+  height: 100%;
+  overflow-y: scroll;
+}
+
+.Scroll_Wrapper::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+
+.Scroll_Wrapper::-webkit-scrollbar-track {
+  background: rgb(239, 239, 239);
+  border-radius: 2px;
+}
+
+.Scroll_Wrapper::-webkit-scrollbar-thumb {
+  background: #bfbfbf;
+  border-radius: 10px;
+}
+
+.Scroll_Wrapper::-webkit-scrollbar-thumb:hover {
+  background: #333;
+}

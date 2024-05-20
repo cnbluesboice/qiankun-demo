@@ -8,7 +8,10 @@ import styles from './index.module.scss';
 import { useNavigate } from 'react-router-dom';
 import { getSessionStorage, setSessionStorage } from '../utils';
 import { UserLoginKey, DatabaseName } from '../utils';
-import { setDataBase, getSettings } from '../https';
+import { setDataBase, getSettings, getDatabaseFields, getEnums } from '../https';
+import { sentryIntegration } from '../utils/sentry';
+// import { parseTableFields } from '../utils/common_tools';
+import action from '../store';
 
 const { Header } = Layout;
 
@@ -25,6 +28,46 @@ export const HeaderView: React.FC<Props> = () => {
   const [databaseValue, setDatabaseValue] = useState<string>('');
   const [databaseLoading, setDatabaseLoading] = useState<boolean>(false);
   const [databaseOptions, setDatabaseOptions] = useState<any>([]);
+  let [tableDataFilter, setTableDataFilter] = useState<any>(null);
+
+  const getCommonData = useMyDebounce(async () => {
+    const getFieldsFn = getDatabaseFields();
+    const getEnumsFn = getEnums();
+    await Promise.all([getFieldsFn, getEnumsFn])
+      .then((res: any) => {
+        let fieldsRes = res[0]?.data;
+        // fieldsRes = parseTableFields(fieldsRes);
+        let enumsRes = res[1]?.data;
+        const EnumsData: any = {};
+        for (let key in enumsRes) {
+          EnumsData[key] = [];
+          enumsRes[key].forEach((item: string) => {
+            EnumsData[key].push({ value: item.toString() });
+          });
+        }
+        const EnumsKeys = Object.keys(EnumsData);
+        const EnumsDataRes = { enumsRes, EnumsData, EnumsKeys };
+        // console.log(fieldsRes, 'fieldsRes_777777777');
+        // console.log(EnumsDataRes, 'EnumsDataRes_777777777');
+        setTableDataFilter(fieldsRes.TableFields);
+        action.setGlobalState({ TableFields: fieldsRes.TableFields, ...fieldsRes.Table_config, Enums: EnumsDataRes });
+        // setTableConfig(fieldsRes.Table_config);
+        // setEnums(enumsRes);
+      })
+      .catch((err: any) => {
+        showMessage(MessageType.ERROR, '公共数据查询', err);
+        throw new Error(err);
+      });
+  }, 500);
+
+  useEffect(() => {
+    if (!tableDataFilter) {
+      const commonData = () => {
+        getCommonData.current();
+      };
+      sentryIntegration(commonData, 'Home_SearchTable_getTableFields', 'search');
+    }
+  }, [tableDataFilter]);
 
   const getSettingsFn = useMyDebounce(() => {
     getSettings().then((res: any) => {

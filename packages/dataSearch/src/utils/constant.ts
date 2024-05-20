@@ -126,33 +126,6 @@ export const PoolTypeListOptions = PoolTypeList.map((item: string) => ({
   value: item,
 }));
 
-export const IsSearchObject = [
-  'Bag',
-  'Frame',
-  'BagFile',
-  'Image',
-  'LidarPointcloud',
-  'Pose',
-  'Clip',
-  'Dataset',
-  'DatasetElement',
-];
-
-export const IsGqlQueryable = [
-  'Bag',
-  'Frame',
-  'BagFile',
-  'Image',
-  'LidarPointcloud',
-  'Pose',
-  'Calib',
-  'Dataset',
-  'DatasetElement',
-  'Tag',
-  'Flow',
-  'Annotation',
-];
-
 export const tables: Table[] = [
   {
     name: TableName.BAG,
@@ -399,6 +372,33 @@ export const tables: Table[] = [
     isSearchObject: false,
     isGqlQueryable: false,
   },
+];
+
+export const IsSearchObject = [
+  'Bag',
+  'Frame',
+  'BagFile',
+  'Image',
+  'LidarPointcloud',
+  'Pose',
+  'Clip',
+  'Dataset',
+  'DatasetElement',
+];
+
+export const IsGqlQueryable = [
+  'Bag',
+  'Frame',
+  'BagFile',
+  'Image',
+  'LidarPointcloud',
+  'Pose',
+  'Calib',
+  'Dataset',
+  'DatasetElement',
+  'Tag',
+  'Flow',
+  'Annotation',
 ];
 
 export const ShowPreImage = [

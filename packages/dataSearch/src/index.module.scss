@@ -1,0 +1,40 @@
+@import './styles/colorConfig.scss';
+@import './styles/commonStyle.scss';
+
+.Data__Search {
+  margin-bottom: 20px;
+
+  :global {
+    .ant-tabs-content-holder {
+      background-color: $colorBackground;
+      padding: 20px;
+      margin-bottom: 20px;
+    }
+
+    .ant-form-item {
+      margin-bottom: 5px;
+    }
+  }
+}
+
+.Data__Search_text {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+}
+
+.Home__Options_container {
+  margin-bottom: 20px;
+}
+
+.Data__Search_Tools {
+  display: flex;
+  justify-content: space-between;
+}
+
+.Data__Filter {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 10px;
+}

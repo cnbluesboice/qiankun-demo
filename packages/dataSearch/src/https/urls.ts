@@ -1,9 +1,9 @@
 export enum URLS {
   // common
   Table_LIST = '/api/common/getDatabaseData',
-  TABLE_FIELDS = '/api/database/schemas',
+  TABLE_FIELDS = '/api/common/getDatabaseFields',
   FILE_URL = '/api/getObject/getUrl',
-  ENUMS_LIST = '/api/enum/values',
+  ENUMS_LIST = '/api/common/getEnums',
   AUTH_TOKEN = '/api/common/authToken',
   SETTINGS = '/api/setting/database_name',
   LIST_COUNT = '/api/common/getCount',
@@ -17,7 +17,7 @@ export enum URLS {
   USER_LOGOUT = '/api/user/logout',
 
   // other
-  HOME_LIST = '/api/home/getHomeData',
+  HOME_LIST = '/api/database/find',
   HOME_MULTI_SEARCH = 'api/home/multiModalSearch',
   DATASET_CREATE = '/api/home/createDataset',
   CREATE_WORKFLOW = '/api/workflow/creatWorkflow',
