@@ -35,6 +35,7 @@ export interface Params {
   image?: string;
   multiTableName?: string;
   date?: string[];
+  tables?: string;
 }
 
 export type LoginParams = {

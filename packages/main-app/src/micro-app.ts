@@ -20,12 +20,12 @@ const microApps = [
     entry: process.env.REACT_APP_SUB_REACT,
     activeRule: '/dataSearch'
   },
-  {
-    key: Keys.DATA_COLLECTION,
-    name: 'dataCollection',
-    entry: process.env.REACT_APP_SUB_REACT1,
-    activeRule: '/dataCollection'
-  },
+  // {
+  //   key: Keys.DATA_COLLECTION,
+  //   name: 'dataCollection',
+  //   entry: process.env.REACT_APP_SUB_REACT1,
+  //   activeRule: '/dataCollection'
+  // },
 ]
 
 const apps: any = {};

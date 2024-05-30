@@ -3,12 +3,12 @@ import { initGlobalState } from 'qiankun'
 // 父应用的初始state
 // Vue.observable是为了让initialState变成可响应：https://cn.vuejs.org/v2/api/#Vue-observable。
 const initialState: any = {
-  user: {
-    name: 'zhangsan'
-  },
   TableFields: {},
   Enums: {},
-  tables: {}
+  tables: [],
+  PoolType: {},
+  TableName: {},
+  TableTypeSQL: {},
 }
 
 const actions: any = initGlobalState(initialState)

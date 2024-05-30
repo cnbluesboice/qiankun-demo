@@ -17,7 +17,7 @@ export enum URLS {
   USER_LOGOUT = '/api/user/logout',
 
   // other
-  HOME_LIST = '/api/database/find',
+  SEARCH_DATA = '/api/database/find',
   HOME_MULTI_SEARCH = 'api/home/multiModalSearch',
   DATASET_CREATE = '/api/home/createDataset',
   CREATE_WORKFLOW = '/api/workflow/creatWorkflow',

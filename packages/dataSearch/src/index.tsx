@@ -1,3 +1,4 @@
+import './public-path'
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { createRoot } from 'react-dom/client';
@@ -29,20 +30,17 @@ export async function mount(props: any) {
   // 可通过 props.getGlobalState() 获取基座下发的数据
   // props.setGlobalState({user: {name: ''}}) 改变全局的数据
   // props.onGlobalStateChange 监听全局数据的变化
-  let rootData = {};
-  props.onGlobalStateChange &&
-    // props.onGlobalStateChange()方法就是用来监听主应用传值，value就是我们在主应用中action.js中初始化的对象值，每当主应用中调用setGlobalState()方法改变值的时候，在这里都可以监听到最新的值
-    (await props.onGlobalStateChange((value: any) => {
-      console.log(value, 'value11111');
-      rootData = value;
-      const root = createRoot(props.container);
-      root.render(<App {...value} />);
-    }, true));
 
-  // render(props);
+  await props.onGlobalStateChange((state: any, prev: any) => {
+    console.log(state, 'state000000');
+    console.log(prev, 'prev111111');
+    // state: 变更后的状态; prev: 变更前的状态
+    const root = createRoot(props.container);
+    root.render(<App {...state} />);
+  });
+
   // const root = createRoot(props.container);
-  // root.render(<App {...rootData} />);
-  // root.render(<App />);
+  // root.render(<App {...props} />);
 }
 /**
  * 应用每次 切出/卸载 会调用的方法，通常在这里我们会卸载微应用的应用实例

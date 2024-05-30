@@ -35,8 +35,8 @@ export const HeaderView: React.FC<Props> = () => {
     const getEnumsFn = getEnums();
     await Promise.all([getFieldsFn, getEnumsFn])
       .then((res: any) => {
-        let fieldsRes = res[0]?.data;
-        // fieldsRes = parseTableFields(fieldsRes);
+        console.log(res, '778787878787878');
+        let fieldsRes = res[0];
         let enumsRes = res[1]?.data;
         const EnumsData: any = {};
         for (let key in enumsRes) {
@@ -47,8 +47,6 @@ export const HeaderView: React.FC<Props> = () => {
         }
         const EnumsKeys = Object.keys(EnumsData);
         const EnumsDataRes = { enumsRes, EnumsData, EnumsKeys };
-        // console.log(fieldsRes, 'fieldsRes_777777777');
-        // console.log(EnumsDataRes, 'EnumsDataRes_777777777');
         setTableDataFilter(fieldsRes.TableFields);
         action.setGlobalState({ TableFields: fieldsRes.TableFields, ...fieldsRes.Table_config, Enums: EnumsDataRes });
         // setTableConfig(fieldsRes.Table_config);

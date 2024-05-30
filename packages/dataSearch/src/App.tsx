@@ -49,7 +49,7 @@ import {
   Time_Fields,
   UserLoginKey,
   Modal_Obj_Options,
-  TableName,
+  // TableName,
 } from './utils/constant';
 import { useMyDebounce, useErrorMessage, MessageType } from './utils/hooks';
 // import { TableFieldsContext } from './utils/contexts';
@@ -90,10 +90,6 @@ enum Tab_Key {
   MODEL = '3',
 }
 
-const QUERY_SUCCESS = `(${TableName.BAG}.process_status ${CompareOP.EQ} ${JSON.stringify(
-  PROCESS_STATUS.SUCCEEDED
-)})`;
-
 let Search_Obj_Multi: string = '';
 const formKey: string = 'names';
 const formKeyModel: string = 'model';
@@ -104,7 +100,10 @@ const DataSearchView: React.FC<Props> = (props: any) => {
   const { query }: Props = router;
   const user = getSessionStorage(UserLoginKey);
   // const commonData: any = useContext(TableFieldsContext);
-  const { TableFields = {}, Enums = {}, tables = {} } = props;
+  const { TableFields = {}, Enums = {}, tables = [], TableName = {} } = props;
+  const QUERY_SUCCESS = `(${TableName.BAG}.process_status ${CompareOP.EQ} ${JSON.stringify(
+    PROCESS_STATUS.SUCCEEDED
+  )})`;
   const showMessage = useErrorMessage();
   const [form] = Form.useForm();
   const [modelForm] = Form.useForm();
@@ -149,7 +148,7 @@ const DataSearchView: React.FC<Props> = (props: any) => {
 
   const getCountValue = useMyDebounce((params: Params) => {
     const getCount = () => {
-      getListCount({ ...params, page: null })
+      getListCount({ ...params, page: null, tables: JSON.stringify(tables) })
         .then((res: any) => {
           const { data } = res;
           setTotalCount(data?.total_count);
@@ -165,7 +164,7 @@ const DataSearchView: React.FC<Props> = (props: any) => {
   const getListData = useMyDebounce((params: Params) => {
     if (query?.tab === Tab_Key.MODEL) return;
     setSpinning(true);
-    getHomeList({ ...params })
+    getHomeList({ ...params, tables: JSON.stringify(tables) })
       .then((res: any) => {
         const { status, data } = res;
         if (status === 200) {
@@ -1267,101 +1266,104 @@ const DataSearchView: React.FC<Props> = (props: any) => {
     };
     sentryIntegration(createFn, 'Home_Dataset_createDatasetFn', 'Dataset');
   }, [idList, datasetName, queryData]);
-
-  return (
-    // TableName && (
-    //   <div className={styles.Scroll_Wrapper}>
-    //     <div className={styles.Data__Search}>
-    //       <Tabs
-    //         defaultActiveKey={searchDefaultKey}
-    //         activeKey={searchDefaultKey}
-    //         items={searchItems}
-    //         onChange={onChangeTab}
-    //       />
-    //       <div className={styles.Data__Search_Tools}>
-    //         <Popover content={FilterContent} placement="bottom" trigger="click">
-    //           <Button type="primary" icon={<FilterOutlined />}>
-    //             Sort
-    //           </Button>
-    //         </Popover>
-    //         <div>
-    //           <Space>
-    //             <Button
-    //               disabled={
-    //                 !(
-    //                   queryData?.table === TableName.BAG ||
-    //                   queryData?.table === TableName.FRAME ||
-    //                   queryData?.table === TableName.POSE
-    //                 )
-    //               }
-    //               onClick={() => {
-    //                 router.push({
-    //                   pathname: '/view/operation/trajectory/home',
-    //                   query: {
-    //                     table: queryData?.table,
-    //                     query: queryData?.query,
-    //                   },
-    //                 });
-    //               }}
-    //             >
-    //               查看轨迹
-    //             </Button>
-    //             <Dropdown menu={{ items }} trigger={['click']}>
-    //               <Button>{idList.length} Selected</Button>
-    //             </Dropdown>
-    //             <Button disabled={idList.length === 0} onClick={() => setIsModalOpen(true)}>
-    //               Create Dataset
-    //             </Button>
-    //           </Space>
-    //         </div>
-    //       </div>
-    //     </div>
-    //     <Spin spinning={spinning} tip="Loading...">
-    //       {listData && (
-    //         <PreviewListView
-    //           from={fromStr}
-    //           listData={listData}
-    //           timeFields={timeFields}
-    //           table={queryData?.table}
-    //           queryData={queryData}
-    //           idList={idList}
-    //           setIdList={setIdList}
-    //           tables={tables}
-    //         />
-    //       )}
-    //       <PaginationView
-    //         totalCount={totalCount}
-    //         pageNum={queryData.page}
-    //         pageSizeNum={queryData.page_size}
-    //         dataList={listData}
-    //         onChangeFn={(page: number, pageSize: number) => {
-    //           setSpinning(true);
-    //           setListData([]);
-    //           setQueryData({ ...queryData, page, page_size: pageSize });
-    //         }}
-    //       />
-    //     </Spin>
-    //     <Modal
-    //       title="创建数据集"
-    //       open={isModalOpen}
-    //       onOk={createDataset}
-    //       onCancel={() => {
-    //         setIsModalOpen(false);
-    //         setDatasetName('');
-    //       }}
-    //     >
-    //       <Input
-    //         value={datasetName}
-    //         onChange={(e: any) => {
-    //           setDatasetName(e.target.value);
-    //         }}
-    //         placeholder="请输入数据集名称"
-    //       />
-    //     </Modal>
-    //   </div>
-    // )
+  console.log(TableName, 'TableName');
+  return Object.keys(TableName).length > 0 ? (
+    <>
+    <div className={styles.Scroll_Wrapper}>
+      <div className={styles.Data__Search}>
+        <Tabs
+          defaultActiveKey={searchDefaultKey}
+          activeKey={searchDefaultKey}
+          items={searchItems}
+          onChange={onChangeTab}
+        />
+        <div className={styles.Data__Search_Tools}>
+          <Popover content={FilterContent} placement="bottom" trigger="click">
+            <Button type="primary" icon={<FilterOutlined />}>
+              Sort
+            </Button>
+          </Popover>
+          <div>
+            <Space>
+              <Button
+                disabled={
+                  !(
+                    queryData?.table === TableName.BAG ||
+                    queryData?.table === TableName.FRAME ||
+                    queryData?.table === TableName.POSE
+                  )
+                }
+                onClick={() => {
+                  router.push({
+                    pathname: '/view/operation/trajectory/home',
+                    query: {
+                      table: queryData?.table,
+                      query: queryData?.query,
+                    },
+                  });
+                }}
+              >
+                查看轨迹
+              </Button>
+              <Dropdown menu={{ items }} trigger={['click']}>
+                <Button>{idList.length} Selected</Button>
+              </Dropdown>
+              <Button disabled={idList.length === 0} onClick={() => setIsModalOpen(true)}>
+                Create Dataset
+              </Button>
+            </Space>
+          </div>
+        </div>
+      </div>
+      <Spin spinning={spinning} tip="Loading...">
+        {listData && (
+          <PreviewListView
+            from={fromStr}
+            listData={listData}
+            timeFields={timeFields}
+            table={queryData?.table}
+            queryData={queryData}
+            idList={idList}
+            setIdList={setIdList}
+            tables={tables}
+          />
+        )}
+        <PaginationView
+          totalCount={totalCount}
+          pageNum={queryData.page}
+          pageSizeNum={queryData.page_size}
+          dataList={listData}
+          onChangeFn={(page: number, pageSize: number) => {
+            setSpinning(true);
+            setListData([]);
+            setQueryData({ ...queryData, page, page_size: pageSize });
+          }}
+        />
+      </Spin>
+      <Modal
+        title="创建数据集"
+        open={isModalOpen}
+        onOk={createDataset}
+        onCancel={() => {
+          setIsModalOpen(false);
+          setDatasetName('');
+        }}
+      >
+        <Input
+          value={datasetName}
+          onChange={(e: any) => {
+            setDatasetName(e.target.value);
+          }}
+          placeholder="请输入数据集名称"
+        />
+      </Modal>
+    </div>
     <div>2435346546</div>
+    </>
+  ) : (
+    <></>
   );
+  // <div>2435346546</div>
 };
 
 export default DataSearchView;
