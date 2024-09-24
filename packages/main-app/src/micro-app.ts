@@ -21,6 +21,12 @@ const microApps = [
     activeRule: '/dataSearch'
   },
   // {
+  //   key: Keys.WORKFLOW,
+  //   name: 'next',
+  //   entry: process.env.REACT_APP_SUB_NEXT,
+  //   activeRule: '/next'
+  // },
+  // {
   //   key: Keys.DATA_COLLECTION,
   //   name: 'dataCollection',
   //   entry: process.env.REACT_APP_SUB_REACT1,

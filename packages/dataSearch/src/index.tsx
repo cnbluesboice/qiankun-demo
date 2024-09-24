@@ -12,9 +12,14 @@ import * as serviceWorker from './serviceWorker';
 // or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
 reportWebVitals();
 
-// if (!(window as any)?.__POWERED_BY_QIANKUN__) {
-//   render();
-// }
+if (!(window as any)?.__POWERED_BY_QIANKUN__) {
+  const root = createRoot(document.getElementById('root') as HTMLElement);
+  root.render(
+    <React.StrictMode>
+      <App />
+    </React.StrictMode>,
+  );
+}
 /**
  * bootstrap 只会在微应用初始化的时候调用一次，下次微应用重新进入时会直接调用 mount 钩子，不会再重复触发 bootstrap。
  * 通常我们可以在这里做一些全局变量的初始化，比如不会在 unmount 阶段被销毁的应用级别的缓存等。
